@@ -1,8 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser'); // latest version of exressJS now comes with Body-Parser!
+const bodyParser = require('body-parser'); 
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
+const multer = require("multer");
+const path = require("path");
 
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
@@ -10,7 +12,6 @@ const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 
 const db = knex({ 
-  // connect to your own database here:
   client: 'pg',
   connection: {
     host : '127.0.0.1',
@@ -20,11 +21,21 @@ const db = knex({
   }
 });
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, 'uploaded-file.jpg'); 
+  },
+});
+
+const upload = multer({ storage });
+
 const app = express();
 
-
 app.use(cors())
-app.use(express.json()); // latest version of exressJS now comes with Body-Parser!
+app.use(express.json()); 
 
 app.get('/', (req, res)=> { res.send(db.users) })
 app.post('/signin', signin.handleSignin(db, bcrypt))
@@ -36,3 +47,12 @@ app.post('/imageurl', (req, res) => { image.handleApiCall(req, res)})
 app.listen(3000, ()=> {
   console.log('app is running on port 3000');
 })
+
+app.post("/upload", upload.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+  res.json({ message: "File uploaded successfully", file: req.file.filename });
+});
+
+app.use("/uploads", express.static("uploads"));

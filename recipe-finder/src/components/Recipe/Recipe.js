@@ -1,10 +1,9 @@
 import React from 'react';
 import './Recipe.css';
 
-const Recipe = ({ imageUrl }) => {
+const Recipe = () => {
   return (
-    <div className='box center shadow-5 pa4' >
-      <img id='inputImage' alt = '' src={imageUrl} width='500px' height='auto'/>
+    <div id='output' className='box center shadow-5 pa4' >
     </div>
     );
 }

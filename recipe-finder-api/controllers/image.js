@@ -1,18 +1,37 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const fs = require('fs').promises;
+const Base64 = require('base64-js');
+const path = require('path');
 
-const genAI = new GoogleGenerativeAI("AIzaSyCrBud7_xvLaRAVMBtSTgHCOl1Nm0vJzwk");
+require('dotenv').config();
+const apiKey = process.env.API_KEY;
+const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const handleApiCall = async (req, res) => {
-  const prompt = "Explain how AI works";
   try {
-    const result = await model.generateContent(prompt);
-    const generatedText = result.response.text();  // Use .text()!
-    // console.log("Generated Text:", generatedText);
-    res.json({ text: generatedText }); // Send just the text to the client (or the whole result if needed)
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    res.status(500).json({ error: "Error calling Gemini API" });
+    const imagePath = path.join(__dirname, '..', 'uploads', 'uploaded-file.jpg');
+    const fileBuffer = await fs.readFile(imagePath);
+    const imageBase64 = Base64.fromByteArray(new Uint8Array(fileBuffer));
+
+    let contents = [
+      {
+        role: 'user',
+        parts: [
+          { inline_data: { mime_type: 'image/jpeg', data: imageBase64, } },
+          { text: 'Determine whether the image depicts a food item. If it does not, respond with "There is no food in this image." If it does, respond with what the food item is and respond with a recipe for the food item.' }
+        ]
+      }
+    ];
+
+    const result = await model.generateContentStream({ contents });
+    let fullResult = '';
+    for await (let response of result.stream) {
+      fullResult += response.text();
+    }
+    res.json(fullResult);
+  } catch (e) {
+    console.log(e);
   }
 }
 
@@ -22,10 +41,6 @@ const handleImage = (req, res, db) => {
   .increment('entries', 1)
   .returning('entries')
   .then(entries => {
-    // If you are using knex.js version 1.0.0 or higher this now returns an array of objects. Therefore, the code goes from:
-    // entries[0] --> this used to return the entries
-    // TO
-    // entries[0].entries --> this now returns the entries
     res.json(entries[0].entries);
   })
   .catch(err => res.status(400).json('unable to get entries'))

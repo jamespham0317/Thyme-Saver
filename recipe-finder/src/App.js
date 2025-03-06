@@ -6,10 +6,13 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Recipe from './components/Recipe/Recipe';
 import './App.css';
+import axios from "axios";
+import MarkdownIt from 'markdown-it';
+
+const md = new MarkdownIt();
 
 const initialState = {
   input: '',
-  imageUrl: '',
   recipe: '',
   route: 'signin',
   isSignedIn: false,
@@ -24,7 +27,6 @@ const initialState = {
 
 // const initialState = {
 //   input: '',
-//   imageUrl: '',
 //   recipe: '',
 //   route: 'home',
 //   isSignedIn: true,
@@ -55,12 +57,23 @@ class App extends Component {
   }
 
   onInputChange = (event) => {
-    this.setState({input: event.target.value});
+    this.setState({input: event.target.files[0]});
   }
 
   onButtonSubmit = async () => {
     this.setState({imageUrl: this.state.input});
- 
+
+    const formData = new FormData();
+    formData.append("file", this.state.input);
+
+    try {
+      await axios.post("http://localhost:3000/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log("File uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
       fetch('http://localhost:3000/imageurl', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
@@ -71,6 +84,11 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
+        this.setState({recipe: response});
+        const output = document.getElementById('output');
+        output.innerHTML = md.render(response);
+
+        if (response.trim() !== "There is no food in this image.") {
           fetch('http://localhost:3000/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
@@ -83,10 +101,8 @@ class App extends Component {
               this.setState(Object.assign(this.state.user, { entries: count}))
             })
             .catch(console.log)
-
+          }
         }
-        // console.log(response.text);
-        // this.setState({recipe: recipe.text});
       })
       .catch(err => console.log(err));
   }
@@ -101,7 +117,7 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, route} = this.state;
     return (
       <div className="App">
         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
@@ -115,7 +131,7 @@ class App extends Component {
                 onInputChange={this.onInputChange}
                 onButtonSubmit={this.onButtonSubmit}
               />
-              <Recipe imageUrl={imageUrl} />
+              <Recipe/>
             </div>
           : (
              route === 'signin'

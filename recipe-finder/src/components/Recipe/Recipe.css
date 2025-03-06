@@ -1,6 +1,10 @@
 .box {
-    padding: 15px; 
-    width: 500px; 
+    display: flex;
+    flex-direction: column; 
+
     background-color: #242f45;
+    color: white;
+    width: 1200px; 
     margin-top: 40px;
+    text-align: left;
 }
