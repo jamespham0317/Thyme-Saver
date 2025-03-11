@@ -38,7 +38,15 @@ const app = express();
 app.use(cors())
 app.use(express.json()); 
 
-app.get('/', (req, res)=> { res.send(db.users) })
+app.get('/', async (req, res) => {
+  try {
+    const users = await db.select('*').from('users'); 
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
 app.post('/signin', signin.handleSignin(db, bcrypt))
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db)})
@@ -46,7 +54,7 @@ app.put('/image', (req, res) => { image.handleImage(req, res, db)})
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res)})
 
 app.listen(process.env.PORT, ()=> {
-  console.log('app is running');
+  console.log('app is running on port ${process.env.PGPORT}');
 })
 
 app.post("/upload", upload.single("file"), (req, res) => {
