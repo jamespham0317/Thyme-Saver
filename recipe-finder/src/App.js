@@ -67,14 +67,14 @@ class App extends Component {
     formData.append("file", this.state.input);
 
     try {
-      await axios.post("http://recipe-finder-production-d134.up.railway.app/upload", formData, {
+      await axios.post("https://recipe-finder-production-d134.up.railway.app/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log("File uploaded successfully!");
     } catch (error) {
       console.error("Error uploading file:", error);
     }
-      fetch('http://recipe-finder-production-d134.up.railway.app/imageurl', {
+      fetch('https://recipe-finder-production-d134.up.railway.app/imageurl', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -89,7 +89,7 @@ class App extends Component {
         output.innerHTML = md.render(response);
 
         if (response.trim() !== "There is no food in this image.") {
-          fetch('http://recipe-finder-production-d134.up.railway.app/image', {
+          fetch('https://recipe-finder-production-d134.up.railway.app/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
