@@ -14,7 +14,6 @@ const md = new MarkdownIt();
 
 const initialState = {
   input: '',
-  recipe: '',
   route: 'signin',
   isSignedIn: false,
   user: {
@@ -25,21 +24,6 @@ const initialState = {
     joined: ''
   }
 }
-
-// const initialState = {
-//   input: '',
-//   recipe: '',
-//   route: 'home',
-//   isSignedIn: true,
-//   user: {
-//     id: '',
-//     name: '',
-//     email: '',
-//     entries: 0,
-//     joined: ''
-//   }
-// }
-
 
 class App extends Component {
   constructor() {
@@ -66,14 +50,14 @@ class App extends Component {
     formData.append("file", this.state.input);
 
     try {
-      await axios.post("https://recipe-finder-production-d134.up.railway.app/upload", formData, {
+      await axios.post("${process.env.BACKEND_URL}/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log("File uploaded successfully!");
     } catch (error) {
       console.error("Error uploading file:", error);
     }
-      fetch('https://recipe-finder-production-d134.up.railway.app/imageurl', {
+      fetch('${process.env.BACKEND_URL}/imageurl', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -83,12 +67,11 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-        this.setState({recipe: response});
         const output = document.getElementById('output');
         output.innerHTML = md.render(response);
 
         if (response.trim() !== "There is no food in this image.") {
-          fetch('https://recipe-finder-production-d134.up.railway.app/image', {
+          fetch('${process.env.BACKEND_URL}/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
