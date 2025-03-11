@@ -23,7 +23,7 @@ class Register extends React.Component {
   }
 
   onSubmitSignIn = () => {
-    fetch('https://recipe-finder-production-d134.up.railway.app/register', {
+    fetch('http://recipe-finder-production-d134.up.railway.app/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
