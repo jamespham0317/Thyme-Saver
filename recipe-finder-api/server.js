@@ -14,10 +14,11 @@ const image = require('./controllers/image');
 const db = knex({ 
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    user : 'jamespham',
-    password : '',
-    database : 'recipe-finder'
+    host : process.env.PGHOST,
+    user : process.env.PGUSER,
+    password : process.env.PGPASSWORD,
+    database : process.env.PGDATABASE, 
+    port: process.env.PGPORT
   }
 });
 
