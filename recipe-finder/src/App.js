@@ -6,6 +6,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import Recipe from './components/Recipe/Recipe';
 import './App.css';
+
 import axios from "axios";
 import MarkdownIt from 'markdown-it';
 
@@ -61,8 +62,6 @@ class App extends Component {
   }
 
   onButtonSubmit = async () => {
-    this.setState({imageUrl: this.state.input});
-
     const formData = new FormData();
     formData.append("file", this.state.input);
 
