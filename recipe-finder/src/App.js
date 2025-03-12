@@ -50,14 +50,14 @@ class App extends Component {
     formData.append("file", this.state.input);
 
     try {
-      await axios.post("${process.env.BACKEND_URL}/upload", formData, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log("File uploaded successfully!");
     } catch (error) {
       console.error("Error uploading file:", error);
     }
-      fetch('${process.env.BACKEND_URL}/imageurl', {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/imageurl`, {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -71,7 +71,7 @@ class App extends Component {
         output.innerHTML = md.render(response);
 
         if (response.trim() !== "There is no food in this image.") {
-          fetch('${process.env.BACKEND_URL}/image', {
+          fetch(`${process.env.REACT_APP_BACKEND_URL}/image`, {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
