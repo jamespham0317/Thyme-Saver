@@ -52,11 +52,6 @@ app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcry
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db)})
 app.put('/image', (req, res) => { image.handleImage(req, res, db)})
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res)})
-
-app.get('/test', (req, res) => {
-  res.status(200).json({ message: 'Backend is working!' });
-});
-
 app.listen(process.env.PORT, ()=> {
   console.log('app is running on port ${process.env.PGPORT}');
 })
