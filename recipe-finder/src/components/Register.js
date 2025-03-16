@@ -39,7 +39,7 @@ class Register extends React.Component {
           this.props.onRouteChange('home');
         }
       })
-        .catch(err => res.status(400).json('Error registering:', err))
+        .catch(err => {console.log('Error signing in:', err)})
   }
 
   render() {

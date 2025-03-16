@@ -90,7 +90,7 @@ class App extends Component {
       })
       .catch(err => console.log("Error calling API:", err));
     } else {
-      console.log("No file uploaded");
+      alert("No file uploaded");
     }
   }
 
