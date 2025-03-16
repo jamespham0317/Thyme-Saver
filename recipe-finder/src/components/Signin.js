@@ -33,7 +33,10 @@ class Signin extends React.Component {
           this.props.onRouteChange('home');
         }
       })
-        .catch(err => {console.log('Error signing in:', err)})
+        .catch(err => {
+          console.log("Error signing in:", err);
+          alert('Incorrect username or password.');
+        })
   }
 
   render() {
