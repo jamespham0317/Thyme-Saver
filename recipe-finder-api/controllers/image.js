@@ -30,8 +30,8 @@ const handleApiCall = async (req, res) => {
       fullResult += response.text();
     }
     res.json(fullResult);
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log("Error calling API:", err);
   }
 }
 
@@ -43,7 +43,7 @@ const handleImage = (req, res, db) => {
   .then(entries => {
     res.json(entries[0].entries);
   })
-  .catch(err => res.status(400).json('unable to get entries'))
+  .catch(err => res.status(400).json('Error getting entries:', err))
 }
 
 module.exports = {

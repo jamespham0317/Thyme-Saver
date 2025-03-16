@@ -54,39 +54,40 @@ class App extends Component {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log("File uploaded successfully!");
-    } catch (error) {
-      console.error("Error uploading file:", error);
+    } catch (err) {
+      console.log("Error uploading file:", err);
     }
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/imageurl`, {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          input: this.state.input
-        })
-      })
-      .then(response => response.json())
-      .then(response => {
-        if (response) {
-        const output = document.getElementById('output');
-        output.innerHTML = md.render(response);
 
-        if (response.trim() !== "There is no food in this image.") {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/image`, {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
-          })
-            .then(response => response.json())
-            .then(count => {
-              this.setState(Object.assign(this.state.user, { entries: count}))
-            })
-            .catch(console.log)
-          }
-        }
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/imageurl`, {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        input: this.state.input
       })
-      .catch(err => console.log(err));
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response) {
+      const output = document.getElementById('output');
+      output.innerHTML = md.render(response);
+
+      if (response.trim() !== "There is no food in this image.") {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/image`, {
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        })
+          .then(response => response.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, { entries: count}))
+          })
+          .catch(err => console.log("Error getting entries:", err))
+        }
+      }
+    })
+    .catch(err => console.log("Error calling API:", err));
   }
 
   onRouteChange = (route) => {
