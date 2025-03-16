@@ -14,7 +14,7 @@ const md = new MarkdownIt();
 
 const initialState = {
   input: '',
-  route: 'signin',
+  route: 'home',
   isSignedIn: false,
   user: {
     id: '',
@@ -46,48 +46,52 @@ class App extends Component {
   }
 
   onButtonSubmit = async () => {
-    const formData = new FormData();
-    formData.append("file", this.state.input);
+    if (this.state.input !== '') {
+      const formData = new FormData();
+      formData.append("file", this.state.input);
 
-    try {
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/upload`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      console.log("File uploaded successfully!");
-    } catch (err) {
-      console.log("Error uploading file:", err);
-    }
-
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/imageurl`, {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        input: this.state.input
-      })
-    })
-    .then(response => response.json())
-    .then(response => {
-      if (response) {
-      const output = document.getElementById('output');
-      output.innerHTML = md.render(response);
-
-      if (response.trim() !== "There is no food in this image.") {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/image`, {
-          method: 'put',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            id: this.state.user.id
-          })
-        })
-          .then(response => response.json())
-          .then(count => {
-            this.setState(Object.assign(this.state.user, { entries: count}))
-          })
-          .catch(err => console.log("Error getting entries:", err))
-        }
+      try {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/upload`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        console.log("File uploaded successfully!");
+      } catch (err) {
+        console.log("Error uploading file:", err);
       }
-    })
-    .catch(err => console.log("Error calling API:", err));
+
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/imageurl`, {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          input: this.state.input
+        })
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response) {
+        const output = document.getElementById('output');
+        output.innerHTML = md.render(response);
+
+        if (response.trim() !== "There is no food in this image.") {
+          fetch(`${process.env.REACT_APP_BACKEND_URL}/image`, {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+            .then(response => response.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, { entries: count}))
+            })
+            .catch(err => console.log("Error getting entries:", err))
+          }
+        }
+      })
+      .catch(err => console.log("Error calling API:", err));
+    } else {
+      console.log("No file uploaded");
+    }
   }
 
   onRouteChange = (route) => {
