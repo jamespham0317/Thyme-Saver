@@ -16,7 +16,7 @@ Users can register for an account, entering their name, email, and a password. U
 of recipes they have added to their "arsenal."
 
 ## Tech Stack
-- Frontend: React, Tachyons
+- Frontend: React
 - Backend: Node.js, Google Gemini API, bcrypt
 - Database: PostgreSQL
 - Hosting: Railway
