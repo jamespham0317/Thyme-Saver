@@ -1,9 +1,8 @@
 import React from 'react';
-import './Recipe.css';
 
 const Recipe = () => {
   return (
-    <div id='output' className='box center shadow-5 pa4' >
+    <div id='output' className='box flex-column center shadow-5 pa4 white ma4 tl w-80'>
     </div>
     );
 }

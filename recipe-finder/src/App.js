@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Navigation from './components/Navigation/Navigation';
-import Signin from './components/Signin/Signin';
-import Register from './components/Register/Register';
-import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import Rank from './components/Rank/Rank';
-import Recipe from './components/Recipe/Recipe';
+import Navigation from './components/Navigation';
+import Signin from './components/Signin';
+import Register from './components/Register';
+import ImageLinkForm from './components/ImageLinkForm';
+import Rank from './components/Rank';
+import Recipe from './components/Recipe';
 import './App.css';
 
 import axios from "axios";

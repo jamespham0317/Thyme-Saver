@@ -1,5 +1,4 @@
 import React from 'react';
-import './ImageLinkForm.css';
 
 const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
   return (
@@ -8,7 +7,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
         {'Upload an image of a dish to find a recipe for it.'}
       </p>
       <div className='center'>
-        <div className='form center br3 shadow-5'>
+        <div className='w-700 center br3 shadow-5'>
           <input className='f4 pa2 w-70 center' type='file' onChange={onInputChange}/>
           <button
             className='w-30 grow f4 link ph3 pv2 dib white'
