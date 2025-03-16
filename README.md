@@ -17,6 +17,6 @@ of recipes they have added to their "arsenal."
 
 ## Tech Stack
 - Frontend: React
-- Backend: Node.js, Google Gemini API, bcrypt
+- Backend: Node.js, Google Gemini API, BCrypt, Multer
 - Database: PostgreSQL
 - Hosting: Railway
