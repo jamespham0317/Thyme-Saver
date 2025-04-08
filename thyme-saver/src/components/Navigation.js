@@ -4,7 +4,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
     if (isSignedIn) {
       return (
         <nav className='flex shadow-3 justify-between'>
-          <p className='f3 pa3 b'> Recipe Finder </p>
+          <p className='f3 pa3 b'> Thyme Saver </p>
           <p onClick={() => onRouteChange('signout')} className='nav-right f3 link dim black pa3 pointer'>Sign Out</p>
         </nav>
       );
