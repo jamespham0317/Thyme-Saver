@@ -1,7 +1,7 @@
-# Recipe Finder Web Application
+# Thyme Saver Web Application
 
 ## Introduction
-**Recipe Finder** is an application for users who want to find recipes for their favourite foods. As a student living away from home, I'm burdened with the responsibility of cooking 
+**Thyme Saver** is an application for users who want to find recipes for their favourite foods. As a student living away from home, I'm burdened with the responsibility of cooking 
 for myself. Having lived alone for several years now, I've grown a liking for cooking and find myself looking for new recipes to try. In this project, I wanted to make this process 
 easier for me and for other individuals in my situation. The application is deployed [here](https://recipe-finder.up.railway.app/).
 
