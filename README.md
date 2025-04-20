@@ -1,22 +1,39 @@
-# Thyme Saver Web Application
+# Thyme Saver 
 
-## Introduction
-**Thyme Saver** is an application for users who want to find recipes for their favourite foods. As a student living away from home, I'm burdened with the responsibility of cooking 
-for myself. Having lived alone for several years now, I've grown a liking for cooking and find myself looking for new recipes to try. In this project, I wanted to make this process 
-easier for me and for other individuals in my situation. The application is deployed [here](https://thymesaver.up.railway.app/).
+**Thyme Saver** is a full-stack web application that helps users discover recipes from images of their favorite foods. Designed with students and busy individuals in mind, it simplifies the process of finding something new to cook — no typing required.
 
-## Features 
+Deployed live at [thymesaver.up.railway.app](https://thymesaver.up.railway.app/)
 
-### Image Upload Recipe Generation
-Users can upload an image file of the food item for which they'd like to learn the recipe for. Upon submission of the image, the application identifies the name of the food item 
-uploaded. A recipe for the food item is then generated and displayed for the user with the required ingredients and instructions.
+---
 
-### Registration and Login
-Users can register for an account, entering their name, email, and a password. Users can then login to their account using their email and password, allowing them to view the number 
-of recipes they have added to their "arsenal."
+## Why I Built This
+
+As a student living away from home, I'm burdened with the responsibility of cooking for myself. Having lived alone for several years now, I've grown a liking for cooking and find myself looking for new recipes to try. With **Thyme Saver**, I wanted to streamline this process for me and for other individuals in my situation.
+
+---
+
+## Features
+
+### Image-Based Recipe Generation
+Users can upload a photo of a dish they’re interested in. The application identifies the food item in the image using AI, then returns a full recipe complete with ingredients and step-by-step instructions.
+
+### User Registration & Login
+Users can create an account with their name, email, and password. Once logged in, they can view the number of recipes they've generated — building their personal "cookbook."
+
+---
 
 ## Tech Stack
-- Frontend: React
-- Backend: Node.js, Google Gemini API, BCrypt, Multer
-- Database: PostgreSQL
-- Hosting: Railway
+
+| Layer       | Technology                                   |
+|-------------|----------------------------------------------|
+| Frontend    | React                                        |
+| Backend     | Node.js, Express, Google Gemini API          |
+| Auth/Upload | Bcrypt, Multer                               |
+| Database    | PostgreSQL                                   |
+| Hosting     | Railway                                      |
+
+---
+
+## Try It Out
+
+Visit the live app: [thymesaver.up.railway.app](https://thymesaver.up.railway.app)
