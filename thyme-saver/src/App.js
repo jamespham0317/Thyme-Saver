@@ -16,6 +16,7 @@ const initialState = {
   input: '',
   route: 'signin',
   isSignedIn: false,
+  recipe: '',
   user: {
     id: '',
     name: '',
@@ -69,6 +70,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
+        this.setState({recipe: response});
         const output = document.getElementById('output');
         output.innerHTML = md.render(response);
 
@@ -107,7 +109,7 @@ class App extends Component {
   render() {
     const { isSignedIn, route} = this.state;
     return (
-      <div className="App">
+      <div className="App vh-100">
         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
         { route === 'home'
           ? <div>
@@ -119,7 +121,7 @@ class App extends Component {
                 onInputChange={this.onInputChange}
                 onButtonSubmit={this.onButtonSubmit}
               />
-              <Recipe/>
+              {this.state.recipe && <Recipe/>}
             </div>
           : (
              route === 'signin'
