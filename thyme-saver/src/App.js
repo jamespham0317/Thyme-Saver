@@ -121,7 +121,7 @@ class App extends Component {
                 onInputChange={this.onInputChange}
                 onButtonSubmit={this.onButtonSubmit}
               />
-              {this.state.recipe && <Recipe/>}
+              {this.state.recipe && <Recipe recipe={this.state.recipe} />}
             </div>
           : (
              route === 'signin'
