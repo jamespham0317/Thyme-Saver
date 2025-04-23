@@ -14,8 +14,8 @@ const md = new MarkdownIt();
 
 const initialState = {
   input: '',
-  route: 'signin',
-  isSignedIn: false,
+  route: 'home',
+  isSignedIn: true,
   recipe: '',
   user: {
     id: '',

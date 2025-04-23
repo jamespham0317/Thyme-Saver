@@ -4,7 +4,7 @@ import herb from './herb.png';
 const Navigation = ({ onRouteChange, isSignedIn }) => {
     if (isSignedIn) {
       return (
-        <nav className='flex shadow-3 justify-between'>
+        <nav className='flex shadow-3 justify-between brown'>
           <div className='flex items-end'>
             <img src={herb} alt="icon" style={{ width: '60px', height: '60px', marginBottom: '30px', marginLeft: '20px', marginRight: '-15px'}}/>
             <p className='f3 pa3 b'> Thyme Saver </p>
@@ -15,6 +15,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
     } else {
       return (
         <nav className='flex shadow-3 justify-between'>
+        <img src={herb} alt="icon" style={{ width: '60px', height: '60px', marginBottom: '30px', marginLeft: '20px', marginRight: '-15px'}}/>
         <p className='f3 pa3 b'> Thyme Saver </p>
           <div className='flex'>
             <p onClick={() => onRouteChange('signin')} className='f3 link dim pa3 pointer'>Sign In</p>

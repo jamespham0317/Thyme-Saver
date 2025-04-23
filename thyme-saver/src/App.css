@@ -12,8 +12,11 @@
 }
 
 .button {
-    background-color: #735a30;
     cursor: pointer;
+}
+
+.brown {
+  background-color: #fff9ed
 }
 
 
