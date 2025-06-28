@@ -20,33 +20,33 @@ jobs:
 
     - name: Install frontend dependencies
       run: |
-        cd frontend
+        cd thyme-saver
         npm ci
 
     - name: Build frontend
       run: |
-        cd frontend
+        cd thyme-saver
         npm run build
 
     - name: Deploy frontend to S3
       run: |
-        aws s3 sync ./frontend/build s3://$S3_BUCKET --delete
+        aws s3 sync ./thyme-saver/build s3://$S3_BUCKET --delete
       env:
         S3_BUCKET: ${{ secrets.S3_BUCKET }}
 
     - name: Install backend dependencies
       run: |
-        cd backend
+        cd thyme-saver-api
         npm ci
 
     - name: Run backend tests
       run: |
-        cd backend
+        cd thyme-saver-api
         npm test
 
     - name: Zip backend code
       run: |
-        cd backend
+        cd thyme-saver-api
         zip -r function.zip .
 
     - name: Configure AWS credentials
@@ -60,4 +60,4 @@ jobs:
       run: |
         aws lambda update-function-code \
           --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
-          --zip-file fileb://backend/function.zip
+          --zip-file fileb://thyme-saver-api/function.zip
