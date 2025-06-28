@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser'); 
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const knex = require('knex');
 const multer = require("multer");
@@ -18,7 +18,8 @@ const db = knex({
     user : process.env.PGUSER,
     password : process.env.PGPASSWORD,
     database : process.env.PGDATABASE, 
-    port: process.env.PGPORT
+    port: process.env.PGPORT,
+    ssl: { rejectUnauthorized: false }
   }
 });
 
@@ -39,11 +40,13 @@ app.use(cors())
 app.use(express.json()); 
 
 app.get('/', async (req, res) => {
+
+  console.log("🚀 Trying DB connection...");
   try {
     const users = await db.select('*').from('users'); 
     res.json(users);
   } catch (err) {
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -52,9 +55,6 @@ app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcry
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db)})
 app.put('/image', (req, res) => { image.handleImage(req, res, db)})
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res)})
-app.listen(process.env.PORT, ()=> {
-  console.log(`app is running on port ${process.env.PGPORT}`);
-})
 
 app.post("/upload", upload.single("file"), (req, res) => {
   if (!req.file) {
@@ -64,3 +64,9 @@ app.post("/upload", upload.single("file"), (req, res) => {
 });
 
 app.use("/uploads", express.static("uploads"));
+
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+module.exports = app;

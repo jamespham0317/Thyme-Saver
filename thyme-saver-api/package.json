@@ -10,8 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
+    "aws-serverless-express": "^3.4.0",
     "base64-js": "^1.5.1",
-    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^3.0.2",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
