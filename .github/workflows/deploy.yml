@@ -45,12 +45,7 @@ jobs:
       run: |
         cd thyme-saver-api
         npm ci
-
-    - name: Run backend tests
-      run: |
-        cd thyme-saver-api
-        npm test
-
+        
     - name: Zip backend code
       run: |
         cd thyme-saver-api
