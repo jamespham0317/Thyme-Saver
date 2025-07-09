@@ -2,7 +2,7 @@
 
 **Thyme Saver** is a full-stack web application that helps users discover recipes from images of their favorite foods. Designed with students and busy individuals in mind, it simplifies the process of finding something new to cook — no typing required.
 
-Deployed live at [thymesaver.up.railway.app](https://thymesaver.up.railway.app/)
+Deployed live at [thymesaver.com]([https://thymesaver.up.railway.app/](http://thyme-saver-frontend.s3-website.us-east-2.amazonaws.com/))
 
 ---
 
@@ -30,10 +30,4 @@ Users can create an account with their name, email, and password. Once logged in
 | Backend     | Node.js, Express, Google Gemini API          |
 | Auth/Upload | Bcrypt, Multer                               |
 | Database    | PostgreSQL                                   |
-| Hosting     | Railway                                      |
-
----
-
-## Try It Out
-
-Visit the live app: [thymesaver.up.railway.app](https://thymesaver.up.railway.app)
+| Hosting     | S3, Lambda, API Gateway, RDS                 |
