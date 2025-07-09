@@ -2,7 +2,7 @@
 
 **Thyme Saver** is a full-stack web application that helps users discover recipes from images of their favorite foods. Designed with students and busy individuals in mind, it simplifies the process of finding something new to cook — no typing required.
 
-Deployed live at [thymesaver.com]([https://thymesaver.up.railway.app/](http://thyme-saver-frontend.s3-website.us-east-2.amazonaws.com/))
+Deployed live at [thymesaver.com]([http://thyme-saver-frontend.s3-website.us-east-2.amazonaws.com/])
 
 ---
 
